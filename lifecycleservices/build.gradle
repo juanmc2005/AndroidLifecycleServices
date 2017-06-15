@@ -1,4 +1,10 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.getkeepsafe.dexcount'
+
+String.metaClass.uncapitalize = {
+    if (delegate.length() <= 1) return delegate.toLowerCase()
+    return delegate[0].toLowerCase() + delegate[1..-1]
+}
 
 android {
     compileSdkVersion 25
