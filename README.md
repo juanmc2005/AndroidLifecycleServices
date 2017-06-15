@@ -7,10 +7,12 @@ This is a tiny lifecycle aware dependency provider for Android. It's inspired in
 ## Why should you use it?
 
 - **No leaks:** it will never hold on to any reference of your activities or fragments
-- **Works out of the box:** it doesn't require any kind of initialization
-- **Lifecycle aware:** every resource is automatically allocated and disposed for you as your activities and fragments get destroyed
-- **No imposition of inheritance:** dependencies to be provided are not required to extend any class nor implement any interface, just use your regular objects
+- **Low memory footprint:** it doesn't create unnecessary instances
+- **Plug and play:** it initializes itself upon first use
+- **Lifecycle aware:** every resource is automatically created and disposed for you as your activities and fragments get created and destroyed
+- **No imposition of inheritance:** no need to extend from an application, activity, fragment, or resource class, just use it with the objects you have without restrictions
 - **Team player:** it plays well with [Dagger](https://github.com/google/dagger). Plus, it works within the scope of activities and fragments, so the rest of your app doesn't have to change at all
+- **Light as air:** only 26kb and 102 methods as of June 15 2017
 
 ## Show me the code!
 
