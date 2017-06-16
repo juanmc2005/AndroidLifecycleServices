@@ -1,15 +1,18 @@
-package com.android.juanmc2005.lifecycleservices;
+package com.android.juanmc2005.lifecycleservices.internals.providers;
 
+import com.android.juanmc2005.lifecycleservices.LifecycleService;
+import com.android.juanmc2005.lifecycleservices.ServiceProvider;
+import com.android.juanmc2005.lifecycleservices.internals.services.LifecycleServiceImpl;
 import com.zhuinden.servicetree.ServiceTree;
 
 /**
  * No need for lifecycle management here
  */
-final class AppServiceProvider implements ServiceProvider {
+public final class AppServiceProvider implements ServiceProvider {
 
     private static AppServiceProvider instance;
 
-    static AppServiceProvider get(ServiceTree tree) {
+    public static AppServiceProvider get(ServiceTree tree) {
         if (instance == null) instance = new AppServiceProvider(tree);
         return instance;
     }

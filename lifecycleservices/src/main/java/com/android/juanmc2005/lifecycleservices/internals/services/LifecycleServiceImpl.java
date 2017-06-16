@@ -1,16 +1,18 @@
-package com.android.juanmc2005.lifecycleservices;
+package com.android.juanmc2005.lifecycleservices.internals.services;
 
 import android.support.annotation.Nullable;
 
+import com.android.juanmc2005.lifecycleservices.LifecycleService;
+import com.android.juanmc2005.lifecycleservices.ServiceBuilder;
 import com.zhuinden.servicetree.ServiceTree;
 
 
-final class LifecycleServiceImpl<S> implements LifecycleService<S> {
+public final class LifecycleServiceImpl<S> implements LifecycleService<S> {
 
     private final ServiceTree.Node treeNode;
     private final String serviceTag;
 
-    LifecycleServiceImpl(ServiceTree.Node treeNode, Class<S> serviceClass) {
+    public LifecycleServiceImpl(ServiceTree.Node treeNode, Class<S> serviceClass) {
         this.treeNode = treeNode;
         this.serviceTag = serviceClass.getCanonicalName();
     }

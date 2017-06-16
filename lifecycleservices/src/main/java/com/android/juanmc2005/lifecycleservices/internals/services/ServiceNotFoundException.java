@@ -1,4 +1,4 @@
-package com.android.juanmc2005.lifecycleservices;
+package com.android.juanmc2005.lifecycleservices.internals.services;
 
 
 final class ServiceNotFoundException extends RuntimeException {

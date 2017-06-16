@@ -1,12 +1,12 @@
-package com.android.juanmc2005.lifecycleservices;
+package com.android.juanmc2005.lifecycleservices.internals;
 
 import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 
 
-final class Utils {
+public final class Utils {
 
-    static void assertInitialized(ServiceManager services) {
+    public static void assertInitialized(ServiceManager services) {
         if (!services.isInitialized()) {
             throw new IllegalStateException("LifecycleServices is not initialized");
         }

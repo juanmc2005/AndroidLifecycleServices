@@ -1,12 +1,14 @@
-package com.android.juanmc2005.lifecycleservices;
+package com.android.juanmc2005.lifecycleservices.internals.lifecycle;
 
 import android.support.annotation.Nullable;
+
+import com.android.juanmc2005.lifecycleservices.ServiceProvider;
 
 import java.util.HashMap;
 import java.util.Map;
 
 
-abstract class ServicesLifecycleManager<SP extends ServiceProvider> {
+public abstract class ServicesLifecycleManager<SP extends ServiceProvider> {
 
     private final Map<String, SP> registeredProviders;
 
@@ -15,7 +17,7 @@ abstract class ServicesLifecycleManager<SP extends ServiceProvider> {
     }
 
     @Nullable
-    SP get(String tag) {
+    public SP get(String tag) {
         final Map<String, SP> providersMap = registeredProviders;
         if (providersMap.containsKey(tag)) {
             return providersMap.get(tag);

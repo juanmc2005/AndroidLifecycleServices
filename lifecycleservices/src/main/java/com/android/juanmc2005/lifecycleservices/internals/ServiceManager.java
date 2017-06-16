@@ -1,18 +1,28 @@
-package com.android.juanmc2005.lifecycleservices;
+package com.android.juanmc2005.lifecycleservices.internals;
 
 import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.android.juanmc2005.lifecycleservices.internals.lifecycle.ActivityServicesLifecycleManager;
+import com.android.juanmc2005.lifecycleservices.internals.lifecycle.FragmentServicesLifecycleManager;
+import com.android.juanmc2005.lifecycleservices.internals.providers.ActivityServiceProvider;
+import com.android.juanmc2005.lifecycleservices.internals.providers.AppServiceProvider;
+import com.android.juanmc2005.lifecycleservices.internals.providers.FragmentServiceProvider;
+import com.android.juanmc2005.lifecycleservices.ServiceProvider;
 import com.zhuinden.servicetree.ServiceTree;
 
-import static com.android.juanmc2005.lifecycleservices.Utils.assertAppCompat;
+import static com.android.juanmc2005.lifecycleservices.internals.Utils.assertAppCompat;
 
 
-final class ServiceManager {
+public final class ServiceManager {
 
     private static final String TAG = "ServiceManager";
+
+    public static ServiceManager create() {
+        return new ServiceManager();
+    }
 
     private final ServiceTree tree;
     private final ActivityServicesLifecycleManager activityServicesManager;
@@ -20,24 +30,24 @@ final class ServiceManager {
 
     private boolean initialized = false;
 
-    ServiceManager() {
+    public ServiceManager() {
         tree = new ServiceTree();
         activityServicesManager = new ActivityServicesLifecycleManager();
         fragmentServicesManager = new FragmentServicesLifecycleManager();
     }
 
-    void initialize(String rootTag) {
+    public void initialize(String rootTag) {
         if (!isInitialized()) {
             tree.createRootNode(rootTag);
             initialized = true;
         }
     }
 
-    boolean isInitialized() {
+    public boolean isInitialized() {
         return initialized;
     }
 
-    ServiceProvider getServiceProviderFor(Activity activity) {
+    public ServiceProvider getServiceProviderFor(Activity activity) {
         final ServiceTree t = tree;
         final String tag = activity.getClass().getCanonicalName();
         ActivityServiceProvider provider = activityServicesManager.get(tag);
@@ -51,7 +61,7 @@ final class ServiceManager {
         return provider;
     }
 
-    ServiceProvider getServiceProviderFor(Fragment fragment) {
+    public ServiceProvider getServiceProviderFor(Fragment fragment) {
         assertAppCompat(fragment.getActivity());
         final ServiceTree t = tree;
         final AppCompatActivity activity = (AppCompatActivity) fragment.getActivity();
@@ -69,17 +79,17 @@ final class ServiceManager {
         return provider;
     }
 
-    ServiceProvider getServiceProviderForApp() {
+    public ServiceProvider getServiceProviderForApp() {
         return AppServiceProvider.get(tree);
     }
 
-    void dispose(Activity activity) {
+    public void dispose(Activity activity) {
         final String tag = activity.getClass().getCanonicalName();
         dispose(tag);
         activityServicesManager.unregister(activity.getApplication(), tag);
     }
 
-    void dispose(Fragment fragment) {
+    public void dispose(Fragment fragment) {
         final String tag = fragment.getClass().getCanonicalName();
         final AppCompatActivity activity = (AppCompatActivity) fragment.getActivity();
         dispose(tag);

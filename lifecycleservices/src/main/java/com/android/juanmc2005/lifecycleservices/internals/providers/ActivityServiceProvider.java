@@ -1,17 +1,21 @@
-package com.android.juanmc2005.lifecycleservices;
+package com.android.juanmc2005.lifecycleservices.internals.providers;
 
 import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
 
+import com.android.juanmc2005.lifecycleservices.LifecycleService;
+import com.android.juanmc2005.lifecycleservices.LifecycleServices;
+import com.android.juanmc2005.lifecycleservices.ServiceProvider;
+import com.android.juanmc2005.lifecycleservices.internals.services.LifecycleServiceImpl;
 import com.zhuinden.servicetree.ServiceTree;
 
 
-final class ActivityServiceProvider implements Application.ActivityLifecycleCallbacks, ServiceProvider {
+public final class ActivityServiceProvider implements Application.ActivityLifecycleCallbacks, ServiceProvider {
 
     private final ServiceTree.Node treeNode;
 
-    ActivityServiceProvider(ServiceTree.Node treeNode) {
+    public ActivityServiceProvider(ServiceTree.Node treeNode) {
         this.treeNode = treeNode;
     }
 

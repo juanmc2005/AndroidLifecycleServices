@@ -1,18 +1,22 @@
-package com.android.juanmc2005.lifecycleservices;
+package com.android.juanmc2005.lifecycleservices.internals.providers;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
+import com.android.juanmc2005.lifecycleservices.LifecycleService;
+import com.android.juanmc2005.lifecycleservices.LifecycleServices;
+import com.android.juanmc2005.lifecycleservices.ServiceProvider;
+import com.android.juanmc2005.lifecycleservices.internals.services.LifecycleServiceImpl;
 import com.zhuinden.servicetree.ServiceTree;
 
 
-final class FragmentServiceProvider
+public final class FragmentServiceProvider
         extends FragmentManager.FragmentLifecycleCallbacks
         implements ServiceProvider {
 
     private final ServiceTree.Node node;
 
-    FragmentServiceProvider(ServiceTree.Node node) {
+    public FragmentServiceProvider(ServiceTree.Node node) {
         this.node = node;
     }
 
