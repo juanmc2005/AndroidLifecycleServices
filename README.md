@@ -7,7 +7,7 @@ This is a tiny lifecycle aware dependency provider for Android. It's inspired in
 ## Why should you use it?
 
 - **No leaks:** it will never hold on to any reference of your activities or fragments
-- **Low memory footprint:** it doesn't create unnecessary instances
+- **Low memory footprint:** it's smart about instance creation
 - **Plug and play:** it initializes itself upon first use
 - **Lifecycle aware:** every resource is automatically created and disposed for you as your activities and fragments get created and destroyed
 - **No imposition of inheritance:** no need to extend from an application, activity, fragment, or resource class, just use it with the objects you have without restrictions
@@ -39,17 +39,39 @@ protected void onCreate(Bundle savedInstanceState) {
 
 **Some things to note**
 
-- If the screen rotates, all bound instances remain, but if the activity is destroyed, then all services are disposed
-- `LifecycleServices` is used to retrieve `ServiceProvider` instances given an instance of the component which is to be served
-- Given a class, `ServiceProvider` provides an instance of a `LifecycleService`, which is just an abstraction that manages the creation or retrieval of the desired object. `ServiceProviders` are managed instances too, so don't worry about keeping references to them, they don't get recreated for the same Application, Activity or Fragment
-- Finally, a `LifecycleService` will be able to get a managed instance for you, or it will create it using a `ServiceBuilder` that receives as a parameter. If you have more complex dependencies, you should use a well known DI library and request just the injector to be managed (An example using Dagger is shown below)
+- If the screen rotates, all bound instances remain, but if the activity is destroyed, then all the activity's services are disposed
+- `LifecycleServices` is used to retrieve a `ServiceProvider` instance associated to your Application, Activity or Fragment
+- Given a class, `ServiceProvider` provides an instance of a `LifecycleService`, which is an abstraction that manages the lifespan of the required object. `ServiceProviders` are managed instances too, so don't worry about keeping references to them, they don't get recreated for the same Application, Activity or Fragment
+- Finally, a `LifecycleService` will be able to get a managed instance for you, or it will create one using a `ServiceBuilder` that receives as a parameter. If you have more complex dependencies, you should use a well known DI library and just request the injector to be managed (An example using Dagger is shown below)
 - Although `LifecycleServices` provides a method to manually dispose the instances, it's highly recommended not to use it, as the library will do that for you
 
 Please note that the intention here is not to reinvent the wheel, so ***this does NOT replace dependency injection***.
 
 ### Dagger example
 
-_Soon :)_
+```java
+@Inject MainViewModel viewModel;
+@Inject SomeService service;
+
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+
+    // Manage the component and use it to inject your dependencies with your custom scopes
+    LifecycleServices.of(MainActivity.this)
+            .provide(ActivityComponent.class)
+            .getOrCreate(DaggerActivityComponent.builder()
+                    .appComponent(MyApplication.getComponent(this))::build)
+            .inject(this);
+            
+    // Use your instances...
+}
+```
+
+In this example, the application class handles the app component (it could have also used Lifecycle Services). We request a managed instance of an activity component and we use that to inject the dependencies. Note that this can be abstracted in a method of a parent class or in an injector helper object.
+
+Please bear in mind that efforts are still being made to make this integration even easier.
 
 ## Installation
 
