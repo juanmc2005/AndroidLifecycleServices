@@ -1,6 +1,6 @@
 # Android Lifecycle Services
 
-_No releases yet :(_
+[![Release](https://jitpack.io/v/juanmc2005/android-lifecycle-services.svg)](https://jitpack.io/#juanmc2005/android-lifecycle-services)
 
 This is a tiny lifecycle aware dependency provider for Android. It's inspired in the [ViewModelProviders](https://developer.android.com/reference/android/arch/lifecycle/ViewModelProviders.html) from [Android Architecture Components](https://developer.android.com/topic/libraries/architecture/index.html) and it relies on [Service Tree](https://github.com/Zhuinden/service-tree) to retain instances organized according to the structure and active components of your application.
 
@@ -75,7 +75,26 @@ Please bear in mind that efforts are still being made to make this integration e
 
 ## Installation
 
-_Soon :)_
+Add jitpack as a repository in your top-level `build.gradle` file
+
+```gradle
+allprojects {
+    repositories {
+        jcenter()
+        maven { url "https://jitpack.io" }
+    }
+}
+```
+
+Add the Android Lifecycle Services dependency to your module-level `build.gradle` file
+
+```gradle
+dependencies {
+    ...
+    compile 'com.github.juanmc2005:android-lifecycle-services:x.y.z'
+    ...
+}
+```
 
 ## License
 
