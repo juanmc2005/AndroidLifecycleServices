@@ -1,6 +1,7 @@
 # Android Lifecycle Services
 
 [![Release](https://jitpack.io/v/juanmc2005/android-lifecycle-services.svg)](https://jitpack.io/#juanmc2005/android-lifecycle-services)
+[![Android Arsenal]( https://img.shields.io/badge/Android%20Arsenal-Android%20Lifecycle%20Services-green.svg?style=flat )]( https://android-arsenal.com/details/1/6753 )
 
 This is a tiny lifecycle aware dependency provider for Android. It's inspired in the [ViewModelProviders](https://developer.android.com/reference/android/arch/lifecycle/ViewModelProviders.html) from [Android Architecture Components](https://developer.android.com/topic/libraries/architecture/index.html) and it relies on [Service Tree](https://github.com/Zhuinden/service-tree) to retain instances organized according to the structure and active components of your application.
 
