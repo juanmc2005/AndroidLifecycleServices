@@ -3,7 +3,7 @@
 [![Release](https://jitpack.io/v/juanmc2005/android-lifecycle-services.svg)](https://jitpack.io/#juanmc2005/android-lifecycle-services)
 [![Android Arsenal]( https://img.shields.io/badge/Android%20Arsenal-Android%20Lifecycle%20Services-green.svg?style=flat )]( https://android-arsenal.com/details/1/6753 )
 
-This is a tiny lifecycle aware dependency provider for Android. It's inspired in the [ViewModelProviders](https://developer.android.com/reference/android/arch/lifecycle/ViewModelProviders.html) from [Android Architecture Components](https://developer.android.com/topic/libraries/architecture/index.html) and it relies on [Service Tree](https://github.com/Zhuinden/service-tree) to retain instances organized according to the structure and active components of your application.
+This is a tiny lifecycle aware dependency provider for Android. It's inspired in [ViewModelProviders](https://developer.android.com/reference/android/arch/lifecycle/ViewModelProviders.html) from [Android Architecture Components](https://developer.android.com/topic/libraries/architecture/index.html) and it relies on [Service Tree](https://github.com/Zhuinden/service-tree) to retain instances organized according to the structure and active components of your application.
 
 ## Why should you use it?
 
@@ -11,9 +11,9 @@ This is a tiny lifecycle aware dependency provider for Android. It's inspired in
 - **Low memory footprint:** it's smart about instance creation
 - **Plug and play:** it initializes itself upon first use
 - **Lifecycle aware:** every resource is automatically created and disposed for you as your activities and fragments get created and destroyed
-- **No imposition of inheritance:** no need to extend from an application, activity, fragment, or resource class, just use it with the objects you have without restrictions
-- **Team player:** it plays well with [Dagger](https://github.com/google/dagger). Plus, it works within the scope of activities and fragments, so the rest of your app doesn't have to change at all
-- **Light as air:** only 26kb and 102 methods as of June 15 2017
+- **No imposition of inheritance:** no need to extend from an application, activity, fragment, or resource class, just use it without restrictions
+- **Team player:** it plays well with [Dagger](https://github.com/google/dagger). Plus, it doesn't require any previous configuration
+- **Light as air:** only 26kb and 102 methods (Release 0.1.0)
 
 ## Show me the code!
 
@@ -40,13 +40,13 @@ protected void onCreate(Bundle savedInstanceState) {
 
 **Some things to note**
 
-- If the screen rotates, all bound instances remain, but if the activity is destroyed, then all the activity's services are disposed
+- If the screen rotates, all bound instances remain, but if the activity is destroyed, then all activity's services are disposed
 - `LifecycleServices` is used to retrieve a `ServiceProvider` instance associated to your Application, Activity or Fragment
-- Given a class, `ServiceProvider` provides an instance of a `LifecycleService`, which is an abstraction that manages the lifespan of the required object. `ServiceProviders` are managed instances too, so don't worry about keeping references to them, they don't get recreated for the same Application, Activity or Fragment
+- Given a class, `ServiceProvider` provides an instance of a `LifecycleService`, which is an abstraction that manages the lifespan of the required object. `ServiceProvider`s are managed instances too, so don't worry about keeping references to them, they don't get recreated for the same Application, Activity or Fragment
 - Finally, a `LifecycleService` will be able to get a managed instance for you, or it will create one using a `ServiceBuilder` that receives as a parameter. If you have more complex dependencies, you should use a well known DI library and just request the injector to be managed (An example using Dagger is shown below)
 - Although `LifecycleServices` provides a method to manually dispose the instances, it's highly recommended not to use it, as the library will do that for you
 
-Please note that the intention here is not to reinvent the wheel, so ***this does NOT replace dependency injection***.
+Please note that the intention is ***NOT to replace dependency injection***.
 
 ### Dagger example
 
@@ -72,7 +72,7 @@ protected void onCreate(Bundle savedInstanceState) {
 
 In this example, the application class handles the app component (it could have also used Lifecycle Services). We request a managed instance of an activity component and we use that to inject the dependencies. Note that this can be abstracted in a method of a parent class or in an injector helper object.
 
-Please bear in mind that efforts are still being made to make this integration even easier.
+Efforts are still being made to make this integration even easier.
 
 ## Installation
 
