@@ -3,8 +3,12 @@ package com.android.juanmc2005.lifecycleservices;
 import android.app.Activity;
 import android.app.Application;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 
-import static com.android.juanmc2005.lifecycleservices.Utils.assertInitialized;
+import com.android.juanmc2005.lifecycleservices.internal.ServiceManager;
+
+import static com.android.juanmc2005.lifecycleservices.internal.Utils.assertAppCompat;
+import static com.android.juanmc2005.lifecycleservices.internal.Utils.assertInitialized;
 
 
 public final class LifecycleServices {
@@ -16,15 +20,15 @@ public final class LifecycleServices {
     }
 
     private static void install(Application app) {
-        serviceManager.initialize(app.getClass().getCanonicalName());
+        serviceManager.initialize(app);
     }
 
     public static ServiceProvider of(Application app) {
         install(app);
-        return serviceManager.getServiceProviderForApp();
+        return serviceManager.getServiceProviderFor(app);
     }
 
-    public static ServiceProvider of(Activity activity) {
+    public static ServiceProvider of(AppCompatActivity activity) {
         install(activity.getApplication());
         return serviceManager.getServiceProviderFor(activity);
     }
@@ -35,8 +39,9 @@ public final class LifecycleServices {
     }
 
     public static void dispose(Activity activity) {
+        assertAppCompat(activity);
         assertInitialized(serviceManager);
-        serviceManager.dispose(activity);
+        serviceManager.dispose((AppCompatActivity) activity);
     }
 
     public static void dispose(Fragment fragment) {

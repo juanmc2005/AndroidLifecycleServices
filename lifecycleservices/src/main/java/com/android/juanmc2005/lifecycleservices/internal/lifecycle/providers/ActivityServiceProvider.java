@@ -1,23 +1,26 @@
-package com.android.juanmc2005.lifecycleservices;
+package com.android.juanmc2005.lifecycleservices.internal.lifecycle.providers;
 
 import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
 
-import com.zhuinden.servicetree.ServiceTree;
+import com.android.juanmc2005.lifecycleservices.internal.injection.ComponentInjector;
+import com.android.juanmc2005.lifecycleservices.LifecycleService;
+import com.android.juanmc2005.lifecycleservices.internal.injection.LifecycleServiceImpl;
+import com.android.juanmc2005.lifecycleservices.LifecycleServices;
+import com.android.juanmc2005.lifecycleservices.ServiceProvider;
 
+public final class ActivityServiceProvider implements Application.ActivityLifecycleCallbacks, ServiceProvider {
 
-final class ActivityServiceProvider implements Application.ActivityLifecycleCallbacks, ServiceProvider {
+    private final ComponentInjector injector;
 
-    private final ServiceTree.Node treeNode;
-
-    ActivityServiceProvider(ServiceTree.Node treeNode) {
-        this.treeNode = treeNode;
+    public ActivityServiceProvider(ComponentInjector injector) {
+        this.injector = injector;
     }
 
     @Override
     public <S> LifecycleService<S> provide(Class<S> clazz) {
-        return new LifecycleServiceImpl<>(treeNode, clazz);
+        return new LifecycleServiceImpl<>(injector, clazz);
     }
 
     @Override

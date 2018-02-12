@@ -36,6 +36,5 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.android.support:appcompat-v7:25.4.0'
-    compile 'com.github.Zhuinden:service-tree:1.6.1'
     testCompile 'junit:junit:4.12'
 }
