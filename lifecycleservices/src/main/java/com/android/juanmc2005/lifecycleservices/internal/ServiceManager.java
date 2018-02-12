@@ -24,11 +24,14 @@ public final class ServiceManager {
 
     private boolean initialized = false;
 
-    public ServiceManager() {
-        injectorManager = new InjectorManager();
-        activityServicesManager = new ActivityServicesLifecycleManager();
-        fragmentServicesManager = new FragmentServicesLifecycleManager();
-        namer = new Namer();
+    public ServiceManager(InjectorManager injectorManager,
+                          ActivityServicesLifecycleManager activityServicesManager,
+                          FragmentServicesLifecycleManager fragmentServicesManager,
+                          Namer namer) {
+        this.injectorManager = injectorManager;
+        this.activityServicesManager = activityServicesManager;
+        this.fragmentServicesManager = fragmentServicesManager;
+        this.namer = namer;
     }
 
     public void initialize(Application app) {

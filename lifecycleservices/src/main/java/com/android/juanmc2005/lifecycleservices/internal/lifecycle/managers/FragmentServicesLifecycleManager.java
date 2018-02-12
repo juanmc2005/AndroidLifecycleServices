@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.android.juanmc2005.lifecycleservices.internal.lifecycle.providers.FragmentServiceProvider;
 
 
-public final class FragmentServicesLifecycleManager extends ServicesLifecycleManager<FragmentServiceProvider> {
+public class FragmentServicesLifecycleManager extends ServicesLifecycleManager<FragmentServiceProvider> {
 
     @Override
     public void register(AppCompatActivity activity, String name, FragmentServiceProvider serviceProvider) {

@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.android.juanmc2005.lifecycleservices.internal.lifecycle.providers.ActivityServiceProvider;
 
 
-public final class ActivityServicesLifecycleManager extends ServicesLifecycleManager<ActivityServiceProvider> {
+public class ActivityServicesLifecycleManager extends ServicesLifecycleManager<ActivityServiceProvider> {
 
     @Override
     public void register(AppCompatActivity activity, String name, ActivityServiceProvider serviceProvider) {
