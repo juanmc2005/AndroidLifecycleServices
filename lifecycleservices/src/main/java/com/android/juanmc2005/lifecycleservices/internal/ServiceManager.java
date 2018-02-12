@@ -13,25 +13,26 @@ import com.android.juanmc2005.lifecycleservices.internal.lifecycle.managers.Frag
 import com.android.juanmc2005.lifecycleservices.internal.lifecycle.providers.AppServiceProvider;
 import com.android.juanmc2005.lifecycleservices.internal.lifecycle.providers.FragmentServiceProvider;
 
-import static com.android.juanmc2005.lifecycleservices.internal.Utils.assertAppCompat;
-
 public final class ServiceManager {
 
     private final InjectorManager injectorManager;
     private final ActivityServicesLifecycleManager activityServicesManager;
     private final FragmentServicesLifecycleManager fragmentServicesManager;
     private final Namer namer;
+    private final Utils utils;
 
     private boolean initialized = false;
 
     public ServiceManager(InjectorManager injectorManager,
                           ActivityServicesLifecycleManager activityServicesManager,
                           FragmentServicesLifecycleManager fragmentServicesManager,
-                          Namer namer) {
+                          Namer namer,
+                          Utils utils) {
         this.injectorManager = injectorManager;
         this.activityServicesManager = activityServicesManager;
         this.fragmentServicesManager = fragmentServicesManager;
         this.namer = namer;
+        this.utils = utils;
     }
 
     public void initialize(Application app) {
@@ -58,14 +59,14 @@ public final class ServiceManager {
     }
 
     public ServiceProvider getServiceProviderFor(Fragment fragment) {
-        assertAppCompat(fragment.getActivity());
+        utils.assertAppCompat(fragment.getActivity());
         final String name = namer.name(fragment);
         if (fragmentServicesManager.isRegistered(name)) {
             return fragmentServicesManager.get(name);
         } else {
             FragmentServiceProvider provider =
                     new FragmentServiceProvider(injectorManager.getComponentInjectorWithName(name));
-            fragmentServicesManager.register((AppCompatActivity) fragment.getActivity(), name, provider);
+            fragmentServicesManager.register(fragment, name, provider);
             return provider;
         }
     }
@@ -83,6 +84,6 @@ public final class ServiceManager {
     public void dispose(Fragment fragment) {
         final String name = namer.name(fragment);
         injectorManager.disposeComponentInjectorWithName(name);
-        fragmentServicesManager.unregister((AppCompatActivity) fragment.getActivity(), name);
+        fragmentServicesManager.unregister(fragment, name);
     }
 }

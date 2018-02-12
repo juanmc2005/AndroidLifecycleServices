@@ -5,22 +5,12 @@ import android.app.Application;
 import android.os.Bundle;
 
 import com.android.juanmc2005.lifecycleservices.internal.injection.ComponentInjector;
-import com.android.juanmc2005.lifecycleservices.LifecycleService;
-import com.android.juanmc2005.lifecycleservices.internal.injection.LifecycleServiceImpl;
 import com.android.juanmc2005.lifecycleservices.LifecycleServices;
-import com.android.juanmc2005.lifecycleservices.ServiceProvider;
 
-public final class ActivityServiceProvider implements Application.ActivityLifecycleCallbacks, ServiceProvider {
+public class ActivityServiceProvider extends BaseServiceProvider implements Application.ActivityLifecycleCallbacks {
 
-    private final ComponentInjector injector;
-
-    public ActivityServiceProvider(ComponentInjector injector) {
-        this.injector = injector;
-    }
-
-    @Override
-    public <S> LifecycleService<S> provide(Class<S> clazz) {
-        return new LifecycleServiceImpl<>(injector, clazz);
+    public ActivityServiceProvider(ComponentInjector componentInjector) {
+        super(componentInjector);
     }
 
     @Override

@@ -10,12 +10,12 @@ String.metaClass.uncapitalize = {
 }
 
 android {
-    compileSdkVersion 25
+    compileSdkVersion 27
     buildToolsVersion '26.0.2'
 
     defaultConfig {
         minSdkVersion 19
-        targetSdkVersion 25
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
 
@@ -28,16 +28,21 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    sourceSets {
+        test.java.srcDirs += 'build/generated/source/r/debug'
+    }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 dependencies {
-    provided 'com.android.support:appcompat-v7:25.4.0'
+    provided 'com.android.support:appcompat-v7:27.0.2'
 
-    testImplementation 'com.android.support:appcompat-v7:25.4.0'
-
+    testImplementation 'com.android.support:appcompat-v7:27.0.2'
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:2.6.3'
-    testImplementation "org.robolectric:robolectric:3.7"
 
     androidTestImplementation 'org.mockito:mockito-android:2.6.3'
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {

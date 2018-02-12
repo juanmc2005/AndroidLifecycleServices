@@ -8,7 +8,7 @@ import com.android.juanmc2005.lifecycleservices.ServiceProvider;
 /**
  * No need for lifecycle management here
  */
-public final class AppServiceProvider implements ServiceProvider {
+public final class AppServiceProvider extends BaseServiceProvider {
 
     private static AppServiceProvider instance;
 
@@ -17,14 +17,7 @@ public final class AppServiceProvider implements ServiceProvider {
         return instance;
     }
 
-    private final ComponentInjector injector;
-
-    private AppServiceProvider(ComponentInjector injector) {
-        this.injector = injector;
-    }
-
-    @Override
-    public <S> LifecycleService<S> provide(Class<S> clazz) {
-        return new LifecycleServiceImpl<>(injector, clazz);
+    private AppServiceProvider(ComponentInjector componentInjector) {
+        super(componentInjector);
     }
 }

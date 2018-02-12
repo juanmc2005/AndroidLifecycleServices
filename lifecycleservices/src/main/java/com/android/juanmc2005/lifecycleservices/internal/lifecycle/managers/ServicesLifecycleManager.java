@@ -17,9 +17,6 @@ public abstract class ServicesLifecycleManager<SP extends ServiceProvider> {
         this.registeredProviders = new HashMap<>();
     }
 
-    public abstract void register(AppCompatActivity activity, String name, SP serviceProvider);
-    public abstract void unregister(AppCompatActivity activity, String name);
-
     @Nullable
     public SP get(String tag) {
         return registeredProviders.get(tag);
