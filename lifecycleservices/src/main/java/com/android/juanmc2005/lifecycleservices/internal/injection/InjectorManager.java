@@ -2,6 +2,7 @@ package com.android.juanmc2005.lifecycleservices.internal.injection;
 
 import android.util.Log;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class InjectorManager {
@@ -9,6 +10,10 @@ public class InjectorManager {
     private static final String TAG = InjectorManager.class.getSimpleName();
 
     private Map<String, ComponentInjector> componentInjectors;
+
+    public InjectorManager() {
+        componentInjectors = new HashMap<>();
+    }
 
     public ComponentInjector getComponentInjectorWithName(String name) {
         ComponentInjector injector = componentInjectors.get(name);
