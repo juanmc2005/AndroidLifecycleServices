@@ -150,4 +150,28 @@ public class ServiceManagerTest {
         assertSame(expectedProvider, provider);
         verify(fragmentServicesLifecycleManager, never()).register(fragment, fragmentName, provider);
     }
+
+    @Test
+    public void disposeActivity_RemovesInjectorAndUnregistersFromLifecycle() {
+        final AppCompatActivity activity = new AppCompatActivity();
+        final String activityName = "activity";
+        when(namer.name(activity)).thenReturn(activityName);
+
+        serviceManager.dispose(activity);
+
+        verify(injectorManager).disposeComponentInjectorWithName(activityName);
+        verify(activityServicesLifecycleManager).unregister(activity, activityName);
+    }
+
+    @Test
+    public void disposeFragment_RemovesInjectorAndUnregistersFromLifecycle() {
+        final Fragment fragment = new Fragment();
+        final String fragmentName = "fragment";
+        when(namer.name(fragment)).thenReturn(fragmentName);
+
+        serviceManager.dispose(fragment);
+
+        verify(injectorManager).disposeComponentInjectorWithName(fragmentName);
+        verify(fragmentServicesLifecycleManager).unregister(fragment, fragmentName);
+    }
 }
