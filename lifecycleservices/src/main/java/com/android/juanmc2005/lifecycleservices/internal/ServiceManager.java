@@ -13,7 +13,7 @@ import com.android.juanmc2005.lifecycleservices.internal.lifecycle.managers.Frag
 import com.android.juanmc2005.lifecycleservices.internal.lifecycle.providers.AppServiceProvider;
 import com.android.juanmc2005.lifecycleservices.internal.lifecycle.providers.FragmentServiceProvider;
 
-public final class ServiceManager {
+public class ServiceManager {
 
     private final InjectorManager injectorManager;
     private final ActivityServicesLifecycleManager activityServicesManager;
